@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: mediasaver-api
+    runtime: docker
+    rootDir: backend
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: MEDIA_SAVER_API_KEY
+        generateValue: true
+      - key: FRONTEND_ORIGINS
+        sync: false
+      - key: MAX_FILE_BYTES
+        value: "524288000"
+      - key: MAX_DURATION_SECONDS
+        value: "3600"
