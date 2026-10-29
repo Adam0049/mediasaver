@@ -79,6 +79,7 @@ def download_media(payload: DownloadRequest, request: Request, background_tasks:
     opts = {
         "outtmpl": str(Path(workdir) / "%(title).150B-%(id)s.%(ext)s"),
         "format": "bestvideo*+bestaudio/best",
+        "extractor_args": {"youtube": {"player_client": ["tv"]}},
         "merge_output_format": "mp4",
         "noplaylist": True,
         "max_filesize": MAX_FILE_BYTES,
@@ -118,7 +119,7 @@ def download_media(payload: DownloadRequest, request: Request, background_tasks:
         if "Unsupported URL" in message:
             message = "This link type is not supported by the current downloader."
         elif "confirm you're not a bot" in message.lower() or "sign in to confirm" in message.lower():
-            message = "YouTube is blocking automated requests from the download server. Updating the downloader may help, but some videos may remain unavailable from cloud hosting."
+            message = "YouTube is blocking automated requests from this server. This video may be unavailable from cloud hosting."
         elif "Private video" in message or "login" in message.lower() or "sign in" in message.lower():
             message = "This content requires authentication. MediaSaver does not accept passwords or session cookies; use the platform's official download/export options."
         elif "maximum file size" in message.lower() or "max-filesize" in message.lower():
